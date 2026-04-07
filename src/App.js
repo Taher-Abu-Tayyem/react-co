@@ -1,11 +1,12 @@
 import './App.css';
+import Content from './Components/Content';
 import Navbar from './Components/Navbar';
 
 function App() {
   return (
     <>
-      <Navbar />
-      <div><h2>Welcome to Our App</h2></div>
+      <Content title="Welcome to Our App" description="Discover amazing features!" />
+      
     </>
   );
 }

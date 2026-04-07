@@ -5,9 +5,9 @@ export default function Navbar() {
   return (
     <header class="header">
       <div class="container header-inner">
-        <a href="#" class="logo">
+        <Link to="/" class="logo">
           Modern Musician
-        </a>
+        </Link>
         <button
           class="nav-toggle"
           aria-label="Toggle navigation"
