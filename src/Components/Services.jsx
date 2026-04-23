@@ -30,4 +30,5 @@ export default function services() {
       <Content title="Our Services" description="Explore our wide range of services!"  />
     </>
   )
+  
 }

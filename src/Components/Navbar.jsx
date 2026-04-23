@@ -1,10 +1,19 @@
 import React from "react";
+import { FaRegSun } from "react-icons/fa";
+import { MdNightlight } from "react-icons/md";
 import { Link } from "react-router-dom";
+import "../theme.css";
+
+import {useContext } from "react";
+import Data from "../context/Data";
+
 
 export default function Navbar() {
+    const {theme, changeTheme} = useContext(Data);
+
   return (
-    <header class="header">
-      <div class="container header-inner">
+    <header className="header"  >
+      <div className="container header-inner">
         <Link to="/" class="logo">
           Modern Musician
         </Link>
@@ -17,15 +26,22 @@ export default function Navbar() {
           <span></span>
           <span></span>
         </button>
-        <nav class="nav" id="nav">
+        
+              < button  onClick={  () => {
+                changeTheme(theme==="light"?"dark":"light")
+              }
+              }>
+                {theme === "light" ? <MdNightlight /> : <FaRegSun/> }              </button>
+            
+        <nav className="nav" id="nav">
           <ul className="nav-list">
+            
             <li>
-              <Link to="/about" >Go to About</Link>
-              
+              <Link to="/about">Go to About</Link>
             </li>
             <li>
               <Link to="/services">Go to Services</Link>
-            </li>        
+            </li>
             <li>
               <Link to="/contact">Go to Contact</Link>
             </li>
