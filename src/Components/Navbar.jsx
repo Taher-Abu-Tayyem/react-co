@@ -10,15 +10,15 @@ import Data from "../context/Data";
 
 export default function Navbar() {
     const {theme, changeTheme} = useContext(Data);
-
+    
   return (
     <header className="header"  >
       <div className="container header-inner">
-        <Link to="/" class="logo">
+        <Link to="/" className="logo">
           Modern Musician
         </Link>
         <button
-          class="nav-toggle"
+          className="nav-toggle"
           aria-label="Toggle navigation"
           aria-expanded="false"
         >
@@ -28,7 +28,7 @@ export default function Navbar() {
         </button>
         
               < button  onClick={  () => {
-                changeTheme(theme==="light"?"dark":"light")
+                changeTheme(theme==="light"?"dark":"light");
               }
               }>
                 {theme === "light" ? <MdNightlight /> : <FaRegSun/> }              </button>

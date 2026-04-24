@@ -30,8 +30,10 @@ const router = createBrowserRouter([
   },
 ]);
 
+console.log("App.js is running");
 function App() {
   const {theme} = useContext(Data);
+  
   return (
   <div>
         <div className={`${theme}`}> 
