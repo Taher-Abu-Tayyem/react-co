@@ -35,6 +35,12 @@ export default function Navbar() {
             
         <nav className="nav" id="nav">
           <ul className="nav-list">
+            <li>
+              <Link to="/signin">SignIn</Link>
+            </li>
+            <li>
+              <Link to="/signup">Go to SignUp</Link>
+            </li>
             
             <li>
               <Link to="/about">Go to About</Link>
