@@ -16,7 +16,8 @@ export default function SignIn() {
             
         <Navbar/>
         <main className='content-home'>
-         <form action="/signin" method="">
+         <form >
+          
             <input type="email" placeholder="Email" required />
             <input type="password" name="password" placeholder="Password" required />
             <button type="submit">Sign In</button>

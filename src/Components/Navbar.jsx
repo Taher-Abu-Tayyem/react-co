@@ -1,59 +1,89 @@
 import React from "react";
 import { FaRegSun } from "react-icons/fa";
 import { MdNightlight } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "../theme.css";
 
-import {useContext } from "react";
+import { useContext } from "react";
 import Data from "../context/Data";
 
-
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../FireBase/Config";
+import { signOut } from "firebase/auth";
 export default function Navbar() {
-    const {theme, changeTheme} = useContext(Data);
-    
+  const [user, loading, error] = useAuthState(auth);
+  const { theme, changeTheme } = useContext(Data);
+
   return (
-    <header className="header"  >
-      <div className="container header-inner">
-        <Link to="/" className="logo">
-          Modern Musician
-        </Link>
-        <button
-          className="nav-toggle"
-          aria-label="Toggle navigation"
-          aria-expanded="false"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        
-              < button  onClick={  () => {
-                changeTheme(theme==="light"?"dark":"light");
-              }
-              }>
-                {theme === "light" ? <MdNightlight /> : <FaRegSun/> }              </button>
-            
-        <nav className="nav" id="nav">
-          <ul className="nav-list">
-            <li>
-              <Link to="/signin">SignIn</Link>
-            </li>
-            <li>
-              <Link to="/signup">Go to SignUp</Link>
-            </li>
-            
-            <li>
-              <Link to="/about">Go to About</Link>
-            </li>
-            <li>
-              <Link to="/services">Go to Services</Link>
-            </li>
-            <li>
-              <Link to="/contact">Go to Contact</Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <div>
+      <header className="header">
+        <div className="container header-inner">
+          <Link to="/" className="logo">
+            Modern Musician
+          </Link>
+          <button
+            className="nav-toggle"
+            aria-label="Toggle navigation"
+            aria-expanded="false"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <button
+            onClick={() => {
+              changeTheme(theme === "light" ? "dark" : "light");
+            }}
+          >
+            {theme === "light" ? <MdNightlight /> : <FaRegSun />}{" "}
+          </button>
+
+          <nav className="nav" id="nav">
+            <ul className="nav-list">
+              {!user && (
+                <li>
+                  <NavLink to="/signin">SignIn</NavLink>
+                </li>
+              )}
+              {!user && (
+                <li>
+                  <NavLink to="/signup">Go to SignUp</NavLink>
+                </li>
+              )}
+              {user && (
+              <>  <li>
+                  <NavLink to="/about">Go to About</NavLink>
+                </li>
+              
+               <li>
+                  <NavLink to="/services">Go to Services</NavLink>
+                </li>
+              
+              <li>
+                <NavLink to="/contact">Go to Contact</NavLink>
+              </li></> )}
+              {user && (
+                <li
+                  onClick={() => {
+                    signOut(auth)
+                      .then(() => {
+                        // Sign-out successful.
+                        console.log("Sign-out successful.");
+                      })
+                      .catch((error) => {
+                        // An error happened.
+                        console.error("Error signing out: ", error);
+                      });
+                  }}
+                >
+                  <NavLink>Sign Out</NavLink>
+                </li>
+              )}
+            </ul>
+          </nav>
+        </div>
+      </header>
+    </div>
   );
 }
