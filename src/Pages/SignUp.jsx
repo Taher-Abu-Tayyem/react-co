@@ -5,9 +5,12 @@ import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../FireBase/Config";
 
+import { useNavigate } from "react-router";
+
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  let navigate = useNavigate();
 
   return (
     <>
@@ -44,7 +47,7 @@ export default function SignUp() {
                   const user = userCredential.user;
                   // ...
                   console.log("User created successfully:", user);
-
+                  navigate("/"); // Navigate to the sign-in page after successful sign-up
                 })
                 .catch((error) => {
                   const errorCode = error.code;

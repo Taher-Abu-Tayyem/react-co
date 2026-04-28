@@ -7,11 +7,14 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../FireBase/Config";
 import { useAuthState } from "react-firebase-hooks/auth";
 
+import { useNavigate } from "react-router";
+
 export default function SignIn() {
     const [user] = useAuthState(auth);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    let navigate = useNavigate();
   return (
     <>
       <Helmet>
@@ -43,7 +46,9 @@ export default function SignIn() {
                   // Signed in
                   const user = userCredential.user;
                   // ...
+                  
                   console.log("User signed in successfully:", user);
+                  navigate("/"); // Navigate to the home page after successful sign-in
                 })
                 .catch((error) => {
                   const errorCode = error.code;
@@ -54,7 +59,7 @@ export default function SignIn() {
            >
           
             Sign In
-          </button>
+          </button> 
           <Link to="/signup">
             <p className="account">Sign Up</p>
           </Link>
