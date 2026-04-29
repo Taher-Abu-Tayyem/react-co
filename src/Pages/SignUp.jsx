@@ -11,6 +11,7 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   let navigate = useNavigate();
+  const [errorr, setErrorr] = useState(null);
 
   return (
     <>
@@ -53,6 +54,23 @@ export default function SignUp() {
                   const errorCode = error.code;
                   const errorMessage = error.message;
                   console.log(errorCode, errorMessage);
+                  setErrorr(errorCode);
+                  switch (errorCode) {
+                    case "auth/invalid-email":
+                      setErrorr("Invalid email.");
+                      break;                  
+                    case "auth/invalid-credential":
+                      setErrorr("Wrong password.");
+                      break;
+                      case "auth/too-many-requests":
+                      setErrorr("Too many requests. Please try again later.");
+                      break;
+                      case "auth/missing-password":
+                      setErrorr("The password is missing.");
+                      break;
+                    default:
+                      setErrorr("An error occurred. Please try again.");
+                  }
                   // ..
                 });
             }}
@@ -63,6 +81,9 @@ export default function SignUp() {
           <Link to="/signin">
             <p className="account">Sign In</p>
           </Link>
+          
+            {errorr && <span style={{ color: "red" }}>{errorr}</span>}
+        
         </form>
       </main>
     </>
