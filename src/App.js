@@ -12,6 +12,7 @@ import Data from "./context/Data";
 import "./theme.css"
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
+import Content from "./Components/Content";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,9 @@ const router = createBrowserRouter([
   {
     path: "/Services",
     element: <Services />,
+  },{
+    path: "/content",
+    element: <Content />,
   },
 ]);
 
