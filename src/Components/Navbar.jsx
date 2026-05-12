@@ -80,7 +80,7 @@ export default function Navbar() {
                   <NavLink>Sign Out</NavLink>
                 </li>
               )}
-              <li><NavLink>{user?.displayName || "Guest"}</NavLink></li>
+              <li><NavLink>{user?.displayName || ""}</NavLink></li>
             </ul>
           </nav>
         </div>

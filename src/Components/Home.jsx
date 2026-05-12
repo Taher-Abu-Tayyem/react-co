@@ -24,6 +24,7 @@ export default function Home() {
           <Helmet>
             <title>ِApp Page</title>
           </Helmet>
+          
       <Content title="Welcome to Our App" description="Discover amazing features!" />
     </div>
   );

@@ -1247,3 +1247,23 @@ form p{
   color: #1f2937;
 }
 
+/* Delete Account Button */
+.delete-account-btn {
+  margin-top: 20px;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.08s ease, filter 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 10px 18px rgba(239,68,68,0.25);
+}
+.delete-account-btn:hover {
+  filter: brightness(0.95);
+}
+.delete-account-btn:active {  transform: scale(0.98);
+  box-shadow: none;
+}
