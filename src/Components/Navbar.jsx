@@ -77,10 +77,10 @@ export default function Navbar() {
                       });
                   }}
                 >
-                  <NavLink>Sign Out</NavLink>
+                  <NavLink to="/signin">Sign Out</NavLink>
                 </li>
               )}
-              <li><NavLink>{user?.displayName || ""}</NavLink></li>
+              <li><NavLink to="/Data">{user?.displayName || "Guest"}</NavLink></li>
             </ul>
           </nav>
         </div>

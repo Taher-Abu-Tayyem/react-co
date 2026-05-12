@@ -5,6 +5,8 @@ import Home from './Components/Home';
 import About from './Components/About';
 import Contact from './Components/Contact';
 import Services from './Components/Services';
+import Datta from './Components/Data';
+
 
 
 import {useContext } from "react";
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
   },{
     path: "/content",
     element: <Content />,
+  },
+  {
+    path: "/Data",
+    element: <Datta />,
   },
 ]);
 
