@@ -3,16 +3,14 @@ import Navbar from "./Navbar";
 
 import { useContext } from "react";
 import Data from "../context/Data";
-import { FaRegSun } from "react-icons/fa";
-import { MdNightlight } from "react-icons/md";
+
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../FireBase/Config";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Moment from "react-moment";
 import { deleteUser } from "firebase/auth";
 
 export default function Content(data) {
-  const { theme, changeTheme } = useContext(Data);
   const [user, loading, error] = useAuthState(auth);
     let navigate = useNavigate();
 
