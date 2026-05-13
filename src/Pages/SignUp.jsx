@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import Navbar from "../Components/Navbar";
 import { Link } from "react-router-dom";
@@ -21,25 +21,48 @@ export default function SignUp() {
   const [errorr, setErrorr] = useState(null);
   const [user, loading, error] = useAuthState(auth);
   
-  if (loading) {
-    return (
-      <div className="content-home">
-        <h1 className="text-2xl font-bold">Initialising User...</h1>
-      </div>
-    );
-  }
+  useEffect(() => {
+      if (user) {
+        if (user.emailVerified) {
+          navigate("/");
+        }
+        
+      }});
+      
+  
+    if (loading) {
+      return (
+        <div>
+          <h1 className='text-2xl font-bold'>Initialising User...</h1>
+        </div>
+      );
+    }
+    if (error) {
+      return (
+        <div>
+          <h1 className='text-2xl font-bold text-red-500'>Error: {error}</h1>
+        </div>
+      );
+    }
+  
 
   if (user) {
     if (!user.emailVerified) {
       return (
+        <>
+        <Navbar />
         <div className="content-home">
           <h1 className="text-2xl font-bold">
             Please verify your email address
           </h1>
-          <button className="delete-account-btn" onClick={() => sendEmailVerification(auth.currentUser)}>
+          <button className="delete-account-btn" onClick={() => {
+                sendEmailVerification(auth.currentUser);
+                console.log("Verification email sent");
+              }}>
             Resend Verification Email
           </button>
         </div>
+        </>
       );
     }
   }
@@ -149,4 +172,4 @@ export default function SignUp() {
       </>
     );
   }
-}
+  }

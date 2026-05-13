@@ -80,7 +80,7 @@ export default function Navbar() {
                   <NavLink to="/signin">Sign Out</NavLink>
                 </li>
               )}
-              <li><NavLink to="/Data">{user?.displayName || "Guest"}</NavLink></li>
+              <li>{user? <NavLink to="/Data">{user.displayName}</NavLink> : "Guest"}</li>
             </ul>
           </nav>
         </div>

@@ -29,24 +29,6 @@ export default function Home() {
     );
   }
 
-  if (user) {
-    if (!user.emailVerified) {
-      return (
-        <div className="content-home">
-          <h1 className="text-2xl font-bold">
-            Please verify your email address
-          </h1>
-          <button
-            className="delete-account-btn"
-            onClick={() => sendEmailVerification(auth.currentUser)}
-          >
-            Resend Verification Email
-          </button>
-        </div>
-      );
-    }
-  }
-
   if (!user) {
     return (
       <>
@@ -65,18 +47,33 @@ export default function Home() {
   if (user) {
     if (!user.emailVerified) {
       return (
-        <div className="content-home">
-          <h1 className="text-2xl font-bold">
-            Please verify your email address
-          </h1>
-        </div>
+        <>
+          <Navbar />
+          <div className="content-home">
+            <h1 className="text-2xl font-bold">
+              Please verify your email address
+            </h1>
+            <button
+              className="delete-account-btn"
+              onClick={() => {
+                sendEmailVerification(auth.currentUser);
+                console.log("Verification email sent");
+              }}
+            >
+              Resend Verification Email
+            </button>
+          </div>
+        </>
       );
     }
     if (user.emailVerified) {
       return (
+        <>
+          <Navbar />
         <div className="content-home">
           <h1 className="text-2xl font-bold">Welcome, {user.displayName}!</h1>
         </div>
+        </>
       );
     }
   }

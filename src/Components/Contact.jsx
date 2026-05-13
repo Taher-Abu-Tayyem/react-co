@@ -10,11 +10,32 @@ export default function Contact() {
 
   let navigate = useNavigate();
   useEffect(() => {
-    if (!user) {
+    if (!user && !loading) {
       navigate("/Content");
     }
-  });
-  return (
+    if (!user.emailVerified) {
+      
+        navigate("/")
+    }
+      });
+
+  if (loading) {
+    return (
+      <div>
+        <h1 className='text-2xl font-bold'>Initialising User...</h1>
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div>
+        <h1 className='text-2xl font-bold text-red-500'>Error: {error}</h1>
+      </div>
+    );
+  }
+if (user) {  
+  if (user.emailVerified) {
+    return (
     <>
           <Helmet>
             <title>Contact Page</title>
@@ -27,3 +48,7 @@ export default function Contact() {
     </>
   )
 }
+
+
+  
+}}
