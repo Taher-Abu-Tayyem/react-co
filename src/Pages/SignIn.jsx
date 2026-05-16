@@ -8,6 +8,7 @@ import { auth } from "../FireBase/Config";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { useNavigate } from "react-router";
+import "./SignIn.css";
 
 export default function SignIn() {
   const [user] = useAuthState(auth);
@@ -16,6 +17,10 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   let navigate = useNavigate();
   const [errorr, setErrorr] = useState(null);
+  const [resetEmail, setResetEmail] = useState(false);
+  const [showForm, setShowForm] = useState("");
+
+
   return (
     <>
       <Helmet>
@@ -61,18 +66,18 @@ export default function SignIn() {
                   const errorMessage = error.message;
                   console.log("Error signing in: ", errorMessage);
                   setErrorr(errorCode);
-                  
+
                   switch (errorCode) {
                     case "auth/invalid-email":
                       setErrorr("Invalid email.");
-                      break;                  
+                      break;
                     case "auth/invalid-credential":
                       setErrorr("Wrong password.");
                       break;
-                      case "auth/too-many-requests":
+                    case "auth/too-many-requests":
                       setErrorr("Too many requests. Please try again later.");
                       break;
-                      case "auth/missing-password":
+                    case "auth/missing-password":
                       setErrorr("The password is missing.");
                       break;
                     default:
@@ -86,9 +91,33 @@ export default function SignIn() {
           <Link to="/signup">
             <p className="account">Sign Up</p>
           </Link>
-          
-            {errorr && <span style={{ color: "red" }}>{errorr}</span>}
-          
+          <p className="reset-text" onClick={(e) => {
+            e.preventDefault();
+            setShowForm("show-reset-password");
+          }}>
+            Forgot Password?
+          </p>
+
+          {errorr && <span style={{ color: "red" }}>{errorr}</span>}
+        </form>
+        
+        <form className={`reset-password ${showForm}`}>
+          <div className="close" onClick={(e) => {
+            e.preventDefault();
+            console.log("close form");
+            setShowForm("hide-reset-password")}}>
+            X
+          </div>
+          <input required type="email" placeholder="Email" />
+          <button  onClick={(e) => {
+            e.preventDefault();
+            // Handle password reset logic here
+            setResetEmail(true);
+            
+          }}>
+            Reset Password
+          </button>
+          {resetEmail && <span style={{ color: "red" }}>Password reset email sent.</span>}
         </form>
       </main>
     </>
