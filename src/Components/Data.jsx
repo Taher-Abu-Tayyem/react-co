@@ -1,8 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 
-import { useContext } from "react";
-import Data from "../context/Data";
+
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../FireBase/Config";
@@ -14,6 +13,22 @@ export default function Content(data) {
   const [user, loading, error] = useAuthState(auth);
     let navigate = useNavigate();
 
+    const deleteAccount = (eo) => {
+      deleteUser(user)
+                  .then(() => {
+                    console.log("User deleted");
+
+                    return navigate("/");
+                    // User deleted.
+                    
+                  })
+                  .catch((error) => {
+                    // An error ocurred
+                    // ...
+                  });
+      
+    }
+    
 
   if (loading) {
     return (
@@ -45,18 +60,8 @@ export default function Content(data) {
             </p>
             <button
               className="btn delete-account-btn"
-              onClick={() => {
-                deleteUser(user)
-                  .then(() => {
-                    return navigate("/");
-                    // User deleted.
-                    console.log("User deleted");
-                    
-                  })
-                  .catch((error) => {
-                    // An error ocurred
-                    // ...
-                  });
+              onClick={(eo) => {
+                deleteAccount(eo)
               }}
             >
               Delete Account

@@ -29,6 +29,62 @@ export default function SignUp() {
         
       }});
       
+      const signUpBTN=(eo)=>{
+        
+                eo.preventDefault();
+                createUserWithEmailAndPassword(auth, email, password)
+                  .then((userCredential) => {
+                    // Signed up
+                    const user = userCredential.user;
+
+                    sendEmailVerification(auth.currentUser)
+                      .then(() => {
+                        // Email verification sent!
+                        console.log("Email verification sent successfully.");
+                        // ..
+                      })
+                      
+                    updateProfile(auth.currentUser, {
+                      displayName: userName,
+                      photoURL: "https://example.com/jane-q-user/profile.jpg",
+                    })
+                      .then(() => {
+                        // Profile updated!
+                        // ...
+                      })
+                      .catch((error) => {
+                        // An error occurred
+                        // ...
+                      });
+                    // ...
+                    console.log("User created successfully:", user);
+                    navigate("/"); // Navigate to the sign-in page after successful sign-up
+                  })
+                  .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorCode, errorMessage);
+                    setErrorr(errorCode);
+                    switch (errorCode) {
+                      case "auth/invalid-email":
+                        setErrorr("Invalid email.");
+                        break;
+                      case "auth/invalid-credential":
+                        setErrorr("Wrong password.");
+                        break;
+                      case "auth/too-many-requests":
+                        setErrorr("Too many requests. Please try again later.");
+                        break;
+                      case "auth/missing-password":
+                        setErrorr("The password is missing.");
+                        break;
+                      default:
+                        setErrorr("An error occurred. Please try again.");
+                    }
+                    // ..
+                  });
+      }
+
   
     if (loading) {
       return (
@@ -105,58 +161,7 @@ export default function SignUp() {
 
             <button
               onClick={(eo) => {
-                eo.preventDefault();
-                createUserWithEmailAndPassword(auth, email, password)
-                  .then((userCredential) => {
-                    // Signed up
-                    const user = userCredential.user;
-
-                    sendEmailVerification(auth.currentUser)
-                      .then(() => {
-                        // Email verification sent!
-                        console.log("Email verification sent successfully.");
-                        // ..
-                      })
-                      
-                    updateProfile(auth.currentUser, {
-                      displayName: userName,
-                      photoURL: "https://example.com/jane-q-user/profile.jpg",
-                    })
-                      .then(() => {
-                        // Profile updated!
-                        // ...
-                      })
-                      .catch((error) => {
-                        // An error occurred
-                        // ...
-                      });
-                    // ...
-                    console.log("User created successfully:", user);
-                    navigate("/"); // Navigate to the sign-in page after successful sign-up
-                  })
-                  .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.log(errorCode, errorMessage);
-                    setErrorr(errorCode);
-                    switch (errorCode) {
-                      case "auth/invalid-email":
-                        setErrorr("Invalid email.");
-                        break;
-                      case "auth/invalid-credential":
-                        setErrorr("Wrong password.");
-                        break;
-                      case "auth/too-many-requests":
-                        setErrorr("Too many requests. Please try again later.");
-                        break;
-                      case "auth/missing-password":
-                        setErrorr("The password is missing.");
-                        break;
-                      default:
-                        setErrorr("An error occurred. Please try again.");
-                    }
-                    // ..
-                  });
+                signUpBTN(eo);
               }}
               type="submit"
             >

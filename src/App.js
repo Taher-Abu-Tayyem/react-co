@@ -15,12 +15,14 @@ import "./theme.css"
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import Content from "./Components/Content";
+import Error404 from "./Pages/Error404";
+import Navbar from "./Components/Navbar";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    errorElement: <h1>Page Not Found</h1>,
+    errorElement: <Error404 />
   },
     {
     path: "/signin",
@@ -47,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/Data",
     element: <Datta />,
+  },
+   {
+    path: "*",
+    element: <Error404 />,
   },
 ]);
 
